@@ -108,4 +108,13 @@ func TestElizaServer(t *testing.T) {
 			assert.Positive(t, total)
 		}
 	})
+	t.Run("goodbye", func(t *testing.T) {
+		for _, client := range clients {
+			result, err := client.GoodBye(context.Background(), connect.NewRequest(&elizav1.GoodByeRequest{
+				Sentence: "Goodbye!",
+			}))
+			require.NoError(t, err)
+			assert.Equal(t, "Goodbye!", result.Msg.GetSentence())
+		}
+	})
 }

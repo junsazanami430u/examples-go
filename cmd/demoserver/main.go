@@ -113,6 +113,13 @@ func (e *elizaServer) Introduce(
 	return nil
 }
 
+func (e *elizaServer) GoodBye(
+	_ context.Context,
+	req *connect.Request[elizav1.GoodByeRequest],
+) (*connect.Response[elizav1.GoodByeResponse], error) {
+	return connect.NewResponse(&elizav1.GoodByeResponse{Sentence: req.Msg.GetSentence()}), nil
+}
+
 func newCORS() *cors.Cors {
 	// To let web developers play with the demo service from browsers, we need a
 	// very permissive CORS setup.

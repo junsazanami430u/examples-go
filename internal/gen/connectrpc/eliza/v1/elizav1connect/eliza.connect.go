@@ -53,6 +53,8 @@ const (
 	ElizaServiceConverseProcedure = "/connectrpc.eliza.v1.ElizaService/Converse"
 	// ElizaServiceIntroduceProcedure is the fully-qualified name of the ElizaService's Introduce RPC.
 	ElizaServiceIntroduceProcedure = "/connectrpc.eliza.v1.ElizaService/Introduce"
+	// ElizaServiceGoodByeProcedure is the fully-qualified name of the ElizaService's GoodBye RPC.
+	ElizaServiceGoodByeProcedure = "/connectrpc.eliza.v1.ElizaService/GoodBye"
 )
 
 // These variables are the protoreflect.Descriptor objects for the RPCs defined in this package.
@@ -61,6 +63,7 @@ var (
 	elizaServiceSayMethodDescriptor       = elizaServiceServiceDescriptor.Methods().ByName("Say")
 	elizaServiceConverseMethodDescriptor  = elizaServiceServiceDescriptor.Methods().ByName("Converse")
 	elizaServiceIntroduceMethodDescriptor = elizaServiceServiceDescriptor.Methods().ByName("Introduce")
+	elizaServiceGoodByeMethodDescriptor   = elizaServiceServiceDescriptor.Methods().ByName("GoodBye")
 )
 
 // ElizaServiceClient is a client for the connectrpc.eliza.v1.ElizaService service.
@@ -74,6 +77,7 @@ type ElizaServiceClient interface {
 	// Introduce is a server streaming RPC. Given the caller's name, Eliza
 	// returns a stream of sentences to introduce itself.
 	Introduce(context.Context, *connect.Request[v1.IntroduceRequest]) (*connect.ServerStreamForClient[v1.IntroduceResponse], error)
+	GoodBye(context.Context, *connect.Request[v1.GoodByeRequest]) (*connect.Response[v1.GoodByeResponse], error)
 }
 
 // NewElizaServiceClient constructs a client for the connectrpc.eliza.v1.ElizaService service. By
@@ -105,6 +109,12 @@ func NewElizaServiceClient(httpClient connect.HTTPClient, baseURL string, opts .
 			connect.WithSchema(elizaServiceIntroduceMethodDescriptor),
 			connect.WithClientOptions(opts...),
 		),
+		goodBye: connect.NewClient[v1.GoodByeRequest, v1.GoodByeResponse](
+			httpClient,
+			baseURL+ElizaServiceGoodByeProcedure,
+			connect.WithSchema(elizaServiceGoodByeMethodDescriptor),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -113,6 +123,7 @@ type elizaServiceClient struct {
 	say       *connect.Client[v1.SayRequest, v1.SayResponse]
 	converse  *connect.Client[v1.ConverseRequest, v1.ConverseResponse]
 	introduce *connect.Client[v1.IntroduceRequest, v1.IntroduceResponse]
+	goodBye   *connect.Client[v1.GoodByeRequest, v1.GoodByeResponse]
 }
 
 // Say calls connectrpc.eliza.v1.ElizaService.Say.
@@ -130,6 +141,11 @@ func (c *elizaServiceClient) Introduce(ctx context.Context, req *connect.Request
 	return c.introduce.CallServerStream(ctx, req)
 }
 
+// GoodBye calls connectrpc.eliza.v1.ElizaService.GoodBye.
+func (c *elizaServiceClient) GoodBye(ctx context.Context, req *connect.Request[v1.GoodByeRequest]) (*connect.Response[v1.GoodByeResponse], error) {
+	return c.goodBye.CallUnary(ctx, req)
+}
+
 // ElizaServiceHandler is an implementation of the connectrpc.eliza.v1.ElizaService service.
 type ElizaServiceHandler interface {
 	// Say is a unary RPC. Eliza responds to the prompt with a single sentence.
@@ -141,6 +157,7 @@ type ElizaServiceHandler interface {
 	// Introduce is a server streaming RPC. Given the caller's name, Eliza
 	// returns a stream of sentences to introduce itself.
 	Introduce(context.Context, *connect.Request[v1.IntroduceRequest], *connect.ServerStream[v1.IntroduceResponse]) error
+	GoodBye(context.Context, *connect.Request[v1.GoodByeRequest]) (*connect.Response[v1.GoodByeResponse], error)
 }
 
 // NewElizaServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -168,6 +185,12 @@ func NewElizaServiceHandler(svc ElizaServiceHandler, opts ...connect.HandlerOpti
 		connect.WithSchema(elizaServiceIntroduceMethodDescriptor),
 		connect.WithHandlerOptions(opts...),
 	)
+	elizaServiceGoodByeHandler := connect.NewUnaryHandler(
+		ElizaServiceGoodByeProcedure,
+		svc.GoodBye,
+		connect.WithSchema(elizaServiceGoodByeMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/connectrpc.eliza.v1.ElizaService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ElizaServiceSayProcedure:
@@ -176,6 +199,8 @@ func NewElizaServiceHandler(svc ElizaServiceHandler, opts ...connect.HandlerOpti
 			elizaServiceConverseHandler.ServeHTTP(w, r)
 		case ElizaServiceIntroduceProcedure:
 			elizaServiceIntroduceHandler.ServeHTTP(w, r)
+		case ElizaServiceGoodByeProcedure:
+			elizaServiceGoodByeHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -195,4 +220,8 @@ func (UnimplementedElizaServiceHandler) Converse(context.Context, *connect.BidiS
 
 func (UnimplementedElizaServiceHandler) Introduce(context.Context, *connect.Request[v1.IntroduceRequest], *connect.ServerStream[v1.IntroduceResponse]) error {
 	return connect.NewError(connect.CodeUnimplemented, errors.New("connectrpc.eliza.v1.ElizaService.Introduce is not implemented"))
+}
+
+func (UnimplementedElizaServiceHandler) GoodBye(context.Context, *connect.Request[v1.GoodByeRequest]) (*connect.Response[v1.GoodByeResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("connectrpc.eliza.v1.ElizaService.GoodBye is not implemented"))
 }
