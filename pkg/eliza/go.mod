@@ -1,4 +1,4 @@
-module connect-examples-go/pkg/eliza
+module github.com/junsazanami430u/examples-go/pkg/eliza
 
 go 1.23.0
 

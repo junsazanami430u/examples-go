@@ -19,7 +19,7 @@
 package elizav1connect
 
 import (
-	v1 "connect-examples-go/pkg/eliza/gen/connectrpc/eliza/v1"
+	v1 "github.com/junsazanami430u/examples-go/pkg/eliza/gen/connectrpc/eliza/v1"
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
