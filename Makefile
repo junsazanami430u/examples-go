@@ -40,6 +40,7 @@ build: generate ## Build all packages
 lint: $(BIN)/golangci-lint $(BIN)/buf ## Lint Go and protobuf
 	test -z "$$($(BIN)/buf format -d . | tee /dev/stderr)"
 	$(GO) vet ./...
+	golangci-lint version
 	golangci-lint run
 	buf lint
 
@@ -50,7 +51,7 @@ lintfix: $(BIN)/golangci-lint $(BIN)/buf ## Automatically fix some lint errors
 
 .PHONY: generate
 generate: $(BIN)/buf $(BIN)/protoc-gen-go $(BIN)/protoc-gen-connect-go $(BIN)/license-header ## Regenerate code and licenses
-	rm -rf internal/gen
+	rm -rf pkg/eliza/gen
 	PATH=$(BIN) $(BIN)/buf generate
 	license-header \
 		--license-type apache \
@@ -68,15 +69,15 @@ checkgenerate:
 
 $(BIN)/buf: Makefile
 	@mkdir -p $(@D)
-	$(GO) install github.com/bufbuild/buf/cmd/buf@v1.26.1
+	$(GO) install github.com/bufbuild/buf/cmd/buf@latest
 
 $(BIN)/license-header: Makefile
 	@mkdir -p $(@D)
-	$(GO) install github.com/bufbuild/buf/private/pkg/licenseheader/cmd/license-header@v1.26.1
+	$(GO) install github.com/bufbuild/buf/private/pkg/licenseheader/cmd/license-header@latest
 
 $(BIN)/golangci-lint: Makefile
 	@mkdir -p $(@D)
-	$(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.60.3
+	$(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
 $(BIN)/protoc-gen-go: Makefile
 	@mkdir -p $(@D)

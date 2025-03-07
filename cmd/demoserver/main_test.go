@@ -27,8 +27,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
 
-	elizav1 "connect-examples-go/internal/gen/connectrpc/eliza/v1"
-	"connect-examples-go/internal/gen/connectrpc/eliza/v1/elizav1connect"
+	elizav1 "connect-examples-go/pkg/eliza/gen/connectrpc/eliza/v1"
+	"connect-examples-go/pkg/eliza/gen/connectrpc/eliza/v1/elizav1connect"
 )
 
 func TestElizaServer(t *testing.T) {

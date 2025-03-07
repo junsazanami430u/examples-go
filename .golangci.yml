@@ -61,4 +61,4 @@ issues:
     # It's much more convenient to keep eliza's matching and response data as
     # globals rather than config.
     - linters: [gochecknoglobals]
-      path: internal/eliza/globals.go
+      path: pkg/eliza/globals.go
