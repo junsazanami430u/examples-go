@@ -15,4 +15,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/junsazanami430u/jsasanami-eliza/pkg/eliza => github.com/junsazanami430u/examples-go/pkg/eliza v0.0.0-20250308074936-11b478fa78dc
+//replace github.com/junsazanami430u/jsasanami-eliza/pkg/eliza => github.com/junsazanami430u/examples-go/pkg/eliza v0.0.0-20250308074936-11b478fa78dc

@@ -57,15 +57,6 @@ const (
 	ElizaServiceGoodByeProcedure = "/connectrpc.eliza.v1.ElizaService/GoodBye"
 )
 
-// These variables are the protoreflect.Descriptor objects for the RPCs defined in this package.
-var (
-	elizaServiceServiceDescriptor         = v1.File_connectrpc_eliza_v1_eliza_proto.Services().ByName("ElizaService")
-	elizaServiceSayMethodDescriptor       = elizaServiceServiceDescriptor.Methods().ByName("Say")
-	elizaServiceConverseMethodDescriptor  = elizaServiceServiceDescriptor.Methods().ByName("Converse")
-	elizaServiceIntroduceMethodDescriptor = elizaServiceServiceDescriptor.Methods().ByName("Introduce")
-	elizaServiceGoodByeMethodDescriptor   = elizaServiceServiceDescriptor.Methods().ByName("GoodBye")
-)
-
 // ElizaServiceClient is a client for the connectrpc.eliza.v1.ElizaService service.
 type ElizaServiceClient interface {
 	// Say is a unary RPC. Eliza responds to the prompt with a single sentence.
@@ -89,30 +80,31 @@ type ElizaServiceClient interface {
 // http://api.acme.com or https://acme.com/grpc).
 func NewElizaServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) ElizaServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
+	elizaServiceMethods := v1.File_connectrpc_eliza_v1_eliza_proto.Services().ByName("ElizaService").Methods()
 	return &elizaServiceClient{
 		say: connect.NewClient[v1.SayRequest, v1.SayResponse](
 			httpClient,
 			baseURL+ElizaServiceSayProcedure,
-			connect.WithSchema(elizaServiceSayMethodDescriptor),
+			connect.WithSchema(elizaServiceMethods.ByName("Say")),
 			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 			connect.WithClientOptions(opts...),
 		),
 		converse: connect.NewClient[v1.ConverseRequest, v1.ConverseResponse](
 			httpClient,
 			baseURL+ElizaServiceConverseProcedure,
-			connect.WithSchema(elizaServiceConverseMethodDescriptor),
+			connect.WithSchema(elizaServiceMethods.ByName("Converse")),
 			connect.WithClientOptions(opts...),
 		),
 		introduce: connect.NewClient[v1.IntroduceRequest, v1.IntroduceResponse](
 			httpClient,
 			baseURL+ElizaServiceIntroduceProcedure,
-			connect.WithSchema(elizaServiceIntroduceMethodDescriptor),
+			connect.WithSchema(elizaServiceMethods.ByName("Introduce")),
 			connect.WithClientOptions(opts...),
 		),
 		goodBye: connect.NewClient[v1.GoodByeRequest, v1.GoodByeResponse](
 			httpClient,
 			baseURL+ElizaServiceGoodByeProcedure,
-			connect.WithSchema(elizaServiceGoodByeMethodDescriptor),
+			connect.WithSchema(elizaServiceMethods.ByName("GoodBye")),
 			connect.WithClientOptions(opts...),
 		),
 	}
@@ -166,29 +158,30 @@ type ElizaServiceHandler interface {
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
 func NewElizaServiceHandler(svc ElizaServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
+	elizaServiceMethods := v1.File_connectrpc_eliza_v1_eliza_proto.Services().ByName("ElizaService").Methods()
 	elizaServiceSayHandler := connect.NewUnaryHandler(
 		ElizaServiceSayProcedure,
 		svc.Say,
-		connect.WithSchema(elizaServiceSayMethodDescriptor),
+		connect.WithSchema(elizaServiceMethods.ByName("Say")),
 		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 		connect.WithHandlerOptions(opts...),
 	)
 	elizaServiceConverseHandler := connect.NewBidiStreamHandler(
 		ElizaServiceConverseProcedure,
 		svc.Converse,
-		connect.WithSchema(elizaServiceConverseMethodDescriptor),
+		connect.WithSchema(elizaServiceMethods.ByName("Converse")),
 		connect.WithHandlerOptions(opts...),
 	)
 	elizaServiceIntroduceHandler := connect.NewServerStreamHandler(
 		ElizaServiceIntroduceProcedure,
 		svc.Introduce,
-		connect.WithSchema(elizaServiceIntroduceMethodDescriptor),
+		connect.WithSchema(elizaServiceMethods.ByName("Introduce")),
 		connect.WithHandlerOptions(opts...),
 	)
 	elizaServiceGoodByeHandler := connect.NewUnaryHandler(
 		ElizaServiceGoodByeProcedure,
 		svc.GoodBye,
-		connect.WithSchema(elizaServiceGoodByeMethodDescriptor),
+		connect.WithSchema(elizaServiceMethods.ByName("GoodBye")),
 		connect.WithHandlerOptions(opts...),
 	)
 	return "/connectrpc.eliza.v1.ElizaService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
