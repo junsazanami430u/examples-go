@@ -1,6 +1,6 @@
 // NB: This module name is intentionally not "go get"-able or "go install"-able.
 // Users should clone the repo to explore the examples.
-module connect-examples-go
+module github.com/junsazanami430u/examples-go
 
 go 1.23.0
 
