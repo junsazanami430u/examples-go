@@ -29,14 +29,13 @@ import (
 	"connectrpc.com/connect"
 	"connectrpc.com/grpchealth"
 	"connectrpc.com/grpcreflect"
+	"github.com/junsazanami430u/examples-go/pkg/eliza"
+	elizav1 "github.com/junsazanami430u/examples-go/pkg/eliza/gen/connectrpc/eliza/v1"
+	"github.com/junsazanami430u/examples-go/pkg/eliza/gen/connectrpc/eliza/v1/elizav1connect"
 	"github.com/rs/cors"
 	"github.com/spf13/pflag"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
-
-	"connect-examples-go/internal/eliza"
-	elizav1 "connect-examples-go/internal/gen/connectrpc/eliza/v1"
-	"connect-examples-go/internal/gen/connectrpc/eliza/v1/elizav1connect"
 )
 
 type elizaServer struct {

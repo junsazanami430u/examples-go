@@ -10,12 +10,12 @@ require (
 	connectrpc.com/connect v1.18.1
 	connectrpc.com/grpchealth v1.3.0
 	connectrpc.com/grpcreflect v1.3.0
+	github.com/junsazanami430u/examples-go/pkg/eliza v0.0.0-20250308134851-21efae57b663
 	github.com/rs/cors v1.11.1
 	github.com/spf13/pflag v1.0.6
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/net v0.37.0
 	golang.org/x/sync v0.12.0
-	google.golang.org/protobuf v1.36.5
 )
 
 require (
@@ -41,6 +41,7 @@ require (
 	google.golang.org/genproto/googleapis/api v0.0.0-20231106174013-bbf56f31fb17 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20231106174013-bbf56f31fb17 // indirect
 	google.golang.org/grpc v1.61.0 // indirect
+	google.golang.org/protobuf v1.36.5 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
