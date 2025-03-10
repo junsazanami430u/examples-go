@@ -10,3 +10,6 @@ plugins:
   - name: connect-go
     out: pkg/eliza/gen
     opt: paths=source_relative
+  - name: validate
+    out: pkg/eliza/gen
+    opt: paths=source_relative,lang=go
