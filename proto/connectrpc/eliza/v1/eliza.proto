@@ -34,6 +34,7 @@ service ElizaService {
   // Introduce is a server streaming RPC. Given the caller's name, Eliza
   // returns a stream of sentences to introduce itself.
   rpc Introduce(IntroduceRequest) returns (stream IntroduceResponse) {}
+  rpc GoodBye(GoodByeRequest) returns (GoodByeResponse) {}
 }
 
 // SayRequest is a single-sentence request.
@@ -65,5 +66,13 @@ message IntroduceRequest {
 
 // IntroduceResponse is one sentence of Eliza's introductory monologue.
 message IntroduceResponse {
+  string sentence = 1;
+}
+
+message GoodByeRequest {
+  string sentence = 1;
+}
+
+message GoodByeResponse {
   string sentence = 1;
 }
