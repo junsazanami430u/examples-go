@@ -2,14 +2,14 @@ version: v1
 managed:
   enabled: true
   go_package_prefix:
-    default: github.com/junsazanami430u/examples-go/pkg/eliza/gen
+    default: github.com/junsazanami430u/examples-go/pkg/eliza/
 plugins:
   - name: go
-    out: pkg/eliza/gen
+    out: ./
     opt: paths=source_relative
   - name: connect-go
-    out: pkg/eliza/gen
+    out:  ./
     opt: paths=source_relative
   - name: validate
-    out: pkg/eliza/gen
+    out: ./
     opt: paths=source_relative,lang=go
