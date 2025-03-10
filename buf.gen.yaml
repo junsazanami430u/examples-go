@@ -3,13 +3,15 @@ managed:
   enabled: true
   go_package_prefix:
     default: github.com/junsazanami430u/examples-go/pkg/eliza/
+    except: 
+      - buf.build/envoyproxy/protoc-gen-validate
 plugins:
   - name: go
-    out: ./
+    out: pkg/eliza/
     opt: paths=source_relative
   - name: connect-go
-    out:  ./
+    out: pkg/eliza/
     opt: paths=source_relative
   - name: validate
-    out: ./
+    out: pkg/eliza/
     opt: paths=source_relative,lang=go

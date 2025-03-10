@@ -16,7 +16,7 @@ syntax = "proto3";
 
 package connectrpc.eliza.v1;
 
-import "buf/validate/validate.proto";;
+import "validate/validate.proto";
 
 // ElizaService provides a way to talk to Eliza, a port of the DOCTOR script
 // for Joseph Weizenbaum's original ELIZA program. Created in the mid-1960s at
@@ -72,7 +72,10 @@ message IntroduceResponse {
 }
 
 message GoodByeRequest {
-  string sentence = 1 [(buf.validate.field).string.min_len = 1];
+  string sentence = 1 [(validate.rules).string = {
+    pattern: "^[A-Za-z]+( [A-Za-z]+)*$",
+    max_bytes: 256,
+  }];
 }
 
 message GoodByeResponse {

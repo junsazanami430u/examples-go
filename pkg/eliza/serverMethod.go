@@ -23,8 +23,8 @@ import (
 	"time"
 
 	"connectrpc.com/connect"
-	elizav1 "github.com/junsazanami430u/examples-go/pkg/eliza/gen/connectrpc/eliza/v1"
-	"github.com/junsazanami430u/examples-go/pkg/eliza/gen/connectrpc/eliza/v1/elizav1connect"
+	elizav1 "github.com/junsazanami430u/examples-go/pkg/eliza/buf"
+	"github.com/junsazanami430u/examples-go/pkg/eliza/buf/elizav1connect"
 	"github.com/rs/cors"
 )
 
