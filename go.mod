@@ -10,6 +10,7 @@ require (
 	connectrpc.com/connect v1.18.1
 	connectrpc.com/grpchealth v1.3.0
 	connectrpc.com/grpcreflect v1.3.0
+	github.com/junsazanami430u/examples-go/pkg/eliza v0.0.0-20250310053635-001cbfbe2967
 	github.com/rs/cors v1.11.1
 	github.com/spf13/pflag v1.0.6
 	github.com/stretchr/testify v1.10.0
