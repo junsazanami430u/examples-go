@@ -158,8 +158,8 @@ github.com/jhump/protoreflect v1.16.0 h1:54fZg+49widqXYQ0b+usAFHbMkBGR4PpXrsHc8+
 github.com/jhump/protoreflect v1.16.0/go.mod h1:oYPd7nPvcBw/5wlDfm/AVmU9zH9BgqGCI469pGxfj/8=
 github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024/go.mod h1:6v2b51hI/fHJwM22ozAgKL4VKDeJcHhJFhtBdhmNjmU=
 github.com/jstemmer/go-junit-report v0.9.1/go.mod h1:Brl9GWCQeLvo8nXZwPNNblvFj/XSXhF0NWZEnDohbsk=
-github.com/junsazanami430u/examples-go/pkg/eliza v0.0.0-20250310053635-001cbfbe2967 h1:VNTMRbohDSR901IXbiWQEZW8KEI9V8msYHhTVzcBGBI=
-github.com/junsazanami430u/examples-go/pkg/eliza v0.0.0-20250310053635-001cbfbe2967/go.mod h1:iI9Xh8CMjyMd6/tsCicsewYokXTsOuTAf4bkp/uiwvc=
+github.com/junsazanami430u/examples-go/pkg/eliza v0.0.0-20250311050137-9b4ece954edc h1:+dQkOz6nAkXOxG0e/3VzjOW7QtSjlmzc0nVO9M4IIo8=
+github.com/junsazanami430u/examples-go/pkg/eliza v0.0.0-20250311050137-9b4ece954edc/go.mod h1:TRe65Oxd/duXLu4ZZNynraEe+fNoGIC4PfHSgY5UJQQ=
 github.com/kisielk/gotool v1.0.0/go.mod h1:XhKaO+MFFWcvkIS/tQcRk01m1F5IRFswLeQ+oQHNcck=
 github.com/kr/fs v0.1.0/go.mod h1:FFnZGqtBN9Gxj7eW1uZ42v5BccTP0vu6NEaFoC2HwRg=
 github.com/kr/pretty v0.1.0 h1:L/CwN0zerZDmRFUapSPitk6f+Q3+0za1rQkzVuMiMFI=

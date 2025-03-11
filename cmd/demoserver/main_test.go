@@ -23,8 +23,8 @@ import (
 	"testing"
 
 	"connectrpc.com/connect"
-	elizav1 "github.com/junsazanami430u/examples-go/pkg/eliza/gen/connectrpc/eliza/v1"
-	"github.com/junsazanami430u/examples-go/pkg/eliza/gen/connectrpc/eliza/v1/elizav1connect"
+	elizav1 "github.com/junsazanami430u/examples-go/pkg/eliza/buf/v1"
+	elizav1connect "github.com/junsazanami430u/examples-go/pkg/eliza/buf/v1/bufv1connect"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
