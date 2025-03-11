@@ -2,7 +2,9 @@ version: v1
 name: buf.build/connectrpc/eliza
 lint:
   use:
-    - DEFAULT
+    - STANDARD
 breaking:
   use:
     - FILE
+deps:
+  - buf.build/envoyproxy/protoc-gen-validate

@@ -23,12 +23,11 @@ import (
 	"testing"
 
 	"connectrpc.com/connect"
+	elizav1 "github.com/junsazanami430u/examples-go/pkg/eliza/buf/v1"
+	elizav1connect "github.com/junsazanami430u/examples-go/pkg/eliza/buf/v1/bufv1connect"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
-
-	elizav1 "connect-examples-go/internal/gen/connectrpc/eliza/v1"
-	"connect-examples-go/internal/gen/connectrpc/eliza/v1/elizav1connect"
 )
 
 func TestElizaServer(t *testing.T) {
@@ -106,6 +105,15 @@ func TestElizaServer(t *testing.T) {
 			assert.NoError(t, stream.Err())
 			assert.NoError(t, stream.Close())
 			assert.Positive(t, total)
+		}
+	})
+	t.Run("goodbye", func(t *testing.T) {
+		for _, client := range clients {
+			result, err := client.GoodBye(context.Background(), connect.NewRequest(&elizav1.GoodByeRequest{
+				Sentence: "Goodbye!",
+			}))
+			require.NoError(t, err)
+			assert.Equal(t, "Goodbye!", result.Msg.GetSentence())
 		}
 	})
 }

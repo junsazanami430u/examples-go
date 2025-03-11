@@ -49,8 +49,8 @@ lintfix: $(BIN)/golangci-lint $(BIN)/buf ## Automatically fix some lint errors
 	buf format -w .
 
 .PHONY: generate
-generate: $(BIN)/buf $(BIN)/protoc-gen-go $(BIN)/protoc-gen-connect-go $(BIN)/license-header ## Regenerate code and licenses
-	rm -rf internal/gen
+generate: $(BIN)/buf $(BIN)/protoc-gen-go $(BIN)/protoc-gen-connect-go $(BIN)/license-header $(BIN)/protoc-gen-validate ## Regenerate code and licenses
+	rm -rf pkg/eliza/buf
 	PATH=$(BIN) $(BIN)/buf generate
 	license-header \
 		--license-type apache \
@@ -68,20 +68,24 @@ checkgenerate:
 
 $(BIN)/buf: Makefile
 	@mkdir -p $(@D)
-	$(GO) install github.com/bufbuild/buf/cmd/buf@v1.26.1
+	$(GO) install github.com/bufbuild/buf/cmd/buf@latest
 
 $(BIN)/license-header: Makefile
 	@mkdir -p $(@D)
-	$(GO) install github.com/bufbuild/buf/private/pkg/licenseheader/cmd/license-header@v1.26.1
+	$(GO) install github.com/bufbuild/buf/private/pkg/licenseheader/cmd/license-header@latest
 
 $(BIN)/golangci-lint: Makefile
 	@mkdir -p $(@D)
-	$(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.60.3
+	$(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
 $(BIN)/protoc-gen-go: Makefile
 	@mkdir -p $(@D)
-	$(GO) install google.golang.org/protobuf/cmd/protoc-gen-go
+	$(GO) install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 
 $(BIN)/protoc-gen-connect-go: Makefile go.mod
 	@mkdir -p $(@D)
-	$(GO) install connectrpc.com/connect/cmd/protoc-gen-connect-go
+	$(GO) install connectrpc.com/connect/cmd/protoc-gen-connect-go@latest
+
+$(BIN)/protoc-gen-validate: Makefile
+	@mkdir -p $(@D)
+	$(GO) install github.com/envoyproxy/protoc-gen-validate@latest
