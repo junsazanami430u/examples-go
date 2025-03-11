@@ -49,8 +49,8 @@ lintfix: $(BIN)/golangci-lint $(BIN)/buf ## Automatically fix some lint errors
 	buf format -w .
 
 .PHONY: generate
-generate: $(BIN)/buf $(BIN)/protoc-gen-go $(BIN)/protoc-gen-connect-go $(BIN)/license-header ## Regenerate code and licenses
-	rm -rf pkg/eliza/gen
+generate: $(BIN)/buf $(BIN)/protoc-gen-go $(BIN)/protoc-gen-connect-go $(BIN)/license-header $(BIN)/protoc-gen-validate ## Regenerate code and licenses
+	rm -rf pkg/eliza/buf
 	PATH=$(BIN) $(BIN)/buf generate
 	license-header \
 		--license-type apache \
