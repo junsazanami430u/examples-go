@@ -68,11 +68,11 @@ checkgenerate:
 
 $(BIN)/buf: Makefile
 	@mkdir -p $(@D)
-	$(GO) install github.com/bufbuild/buf/cmd/buf@v1.26.1
+	$(GO) install github.com/bufbuild/buf/cmd/buf@latest
 
 $(BIN)/license-header: Makefile
 	@mkdir -p $(@D)
-	$(GO) install github.com/bufbuild/buf/private/pkg/licenseheader/cmd/license-header@v1.26.1
+	$(GO) install github.com/bufbuild/buf/private/pkg/licenseheader/cmd/license-header@latest
 
 $(BIN)/golangci-lint: Makefile
 	@mkdir -p $(@D)
@@ -80,8 +80,12 @@ $(BIN)/golangci-lint: Makefile
 
 $(BIN)/protoc-gen-go: Makefile
 	@mkdir -p $(@D)
-	$(GO) install google.golang.org/protobuf/cmd/protoc-gen-go
+	$(GO) install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 
 $(BIN)/protoc-gen-connect-go: Makefile go.mod
 	@mkdir -p $(@D)
-	$(GO) install connectrpc.com/connect/cmd/protoc-gen-connect-go
+	$(GO) install connectrpc.com/connect/cmd/protoc-gen-connect-go@latest
+
+$(BIN)/protoc-gen-validate: Makefile
+	@mkdir -p $(@D)
+	$(GO) install github.com/envoyproxy/protoc-gen-validate@latest
